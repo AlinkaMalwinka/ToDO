@@ -11,12 +11,16 @@ import UIKit
 class ToDoViewController: UITableViewController {
     
     var itemArray = ["Find Mike", "Buy Apple", "Play Game"]
+    
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      
         
-    }
+        if let items = defaults.array(forKey: "ToDoListArray") as? [String] {
+            itemArray = items
+        }
+          }
 
     // MARK - Tableview Datasource Methods
     
@@ -66,8 +70,10 @@ class ToDoViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
         
         // 4. what will happen once the user cliks (rember we inside clousure, write word self before)
-            
-        self.itemArray.append(textField.text!)
+            self.itemArray.append(textField.text!)
+         
+        // 6, After creating let defoults we can save users defoults to the phone memory
+            self.defaults.set(self.itemArray, forKey: "ToDoListArray")
             
         // 5. reload Data on Table View
             
