@@ -10,7 +10,7 @@ import UIKit
 
 class ToDoViewController: UITableViewController {
     
-    let itemArray = ["Find Mike", "Buy Apple", "Play Game"]
+    var itemArray = ["Find Mike", "Buy Apple", "Play Game"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,5 +49,44 @@ class ToDoViewController: UITableViewController {
         
     }
     
+// MARK - Add new Items
+    
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        
+        // 3.  provide local var to extend alertTextField from the clousure
+       
+        var textField = UITextField()
+        
+        // 1. make an alert
+        
+        let alert = UIAlertController(title: "Add New ToDo Item", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+        
+        // 4. what will happen once the user cliks (rember we inside clousure, write word self before)
+            
+        self.itemArray.append(textField.text!)
+            
+        // 5. reload Data on Table View
+            
+            self.tableView.reloadData()
+            
+        
+        }
+        
+        // 2. to addtext field  in alert
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+        }
+        
+        alert.addAction(action)
+        
+        present (alert, animated: true, completion: nil)
+        
+    }
 
 }
